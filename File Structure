@@ -1,0 +1,7 @@
+.github/
+└── workflows/
+    └── deploy.yml     # Main GitHub Actions workflow
+app/
+└── index.html / app.py / etc.
+scripts/
+└── deploy_ec2.sh      # For EC2 deployments (via SSH)
