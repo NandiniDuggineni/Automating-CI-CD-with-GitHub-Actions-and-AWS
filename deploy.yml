@@ -1,0 +1,32 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        role-to-assume: arn:aws:iam::<ACCOUNT_ID>:role/<GitHubActionsRole>
+        aws-region: us-east-1
+
+    - name: Sync to S3
+      run: aws s3 sync ./app s3://your-s3-bucket-name --delete
+
+    - name: Send SNS notification
+      run: |
+        aws sns publish \
+          --topic-arn arn:aws:sns:us-east-1:<ACCOUNT_ID>:deploy-topic \
+          --message "✅ Deployment to S3 successful!"
