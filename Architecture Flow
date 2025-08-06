@@ -1,0 +1,11 @@
+GitHub Repo 
+   |
+   | [Push / PR triggers]
+   ↓
+GitHub Actions Workflow
+   |
+   ├── Authenticate with AWS via OIDC (no hardcoded secrets)
+   ├── Deploy to:
+   │    ├── S3 (if frontend code)
+   │    └── EC2 (SSH & deploy code)
+   └── Publish SNS Notification
